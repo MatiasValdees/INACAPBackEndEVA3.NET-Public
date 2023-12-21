@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Music>;
+@{
+    int i = 1;
+}
+
+<h1>Musica</h1>
+<a asp-action="Create" class="btn btn-primary mt-3 mb-3">
+    Agregar Cancion
+</a>
+<div class="w-75">
+    <div class="w-75">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Titulo</th>
+                    <th scope="col">Artista</th>
+                    <th scope="col">Album</th>
+                    <th scope="col">Duracion</th>
+                    <th scope="col">Acciones</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model)
+                {
+                    <tr>
+                        <td scope="row">@i</td>
+                        <td>@m.Titulo</td>
+                        <td>@m.Artista</td>
+                        <td>@m.Album</td>
+                        <td>@m.Duracion</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-Id="@m.IdCancion"><i class="fa-regular fa-pen-to-square"></i></a>
+                            <a asp-action="Delete" asp-route-Id="@m.IdCancion" onclick="return confirm('Estas Seguro?')"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    i++;
+
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

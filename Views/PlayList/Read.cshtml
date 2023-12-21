@@ -1,0 +1,57 @@
+﻿@model ViewModelPlayListMusic;
+@{
+    int i = 1;
+}
+<h1 class="mb-3">PlayList</h1>
+<h4>@Model.playList.Name</h4>
+<h5>Canciones</h5>
+<a type="button" asp-action="AddMusic" asp-route-Idplaylist="@Model.playList.PlaylistId" class="btn btn-primary mt-3 mb-3">
+    Agregar cancion
+</a>
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="w-75">
+<div class="w-75">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Titulo</th>
+                <th scope="col">Artista</th>
+                <th scope="col">Album</th>
+                <th scope="col">Duracion</th>
+                <th scope="col" td style="text-align:center">Eliminar</th>
+
+            </tr>
+        </thead>
+        <tbody>
+                @if (Model.PlayListMusic.Count()>0)
+                {
+                    foreach (var p in Model.PlayListMusic)
+                    {
+                        <tr>
+                            <td scope="row">@i</td>
+                            <td>@p.music.Titulo</td>
+                            <td>@p.music.Artista</td>
+                            <td>@p.music.Album</td>
+                            <td>@p.music.Duracion</td>
+                            <td style ="text-align:center">
+                                <a asp-action="DeleteSong" asp-route-IdSong="@p.MusicId" asp-route-IdPlaylist="@Model.playList.PlaylistId" onclick="return confirm('Estas Seguro?')"><i class="fa-solid fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" style="text-align:center"> No Hay canciones en la PlayList</td>
+                    </tr>
+                }
+            </tbody>
+    </table>
+
+</div>
+</div>
+<div>
+    <a asp-action="Index">Regresar</a>
+</div>

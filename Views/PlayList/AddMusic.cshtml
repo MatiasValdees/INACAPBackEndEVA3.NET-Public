@@ -1,0 +1,43 @@
+﻿@model ViewModelAddMusicToPlayList;
+@{
+    int i = 1;
+}
+<h3>@Model.PlayList.Name</h3>
+
+<div class="w-75">
+    <div class="w-75">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Titulo</th>
+                    <th scope="col">Artista</th>
+                    <th scope="col">Album</th>
+                    <th scope="col">Duracion</th>
+                    <th scope="col">Acciones</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model.Musics)
+                {
+                    <tr>
+                        <td scope="row">@i</td>
+                        <td>@m.Titulo</td>
+                        <td>@m.Artista</td>
+                        <td>@m.Album</td>
+                        <td>@m.Duracion</td>
+                        <td style="text-align:center">
+                            <a asp-action="AddMusicToPlaylist" asp-route-IdMusic="@m.IdCancion" asp-route-Idplaylist="@Model.PlayList.PlaylistId"><i class="fa-solid fa-plus"></i></a>
+                        </td>
+                    </tr>
+                    i++;
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Regresar</a>
+</div>

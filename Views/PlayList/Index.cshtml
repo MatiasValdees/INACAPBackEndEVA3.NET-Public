@@ -1,0 +1,70 @@
+﻿@model ViewModelPlayList;
+@{
+    int i = 1;
+}
+<h1>Playlists</h1>
+<!-- Button trigger modal CREATE-->
+<button type="button" class="btn btn-primary mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Crear PlayList
+</button>
+
+<!-- Modal CREATE-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Crear Nueva Playlist</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create" method="post">
+                    <div class="mb-3">
+                        <div asp-validation-summary=ModelOnly></div>
+                        <label asp-for="playList.Name" class="form-label">Nombre PlayList</label>
+                        <input asp-for="playList.Name" class="form-control">
+                        <span asp-validation-for="playList.Name" class="text-danger"></span>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <input type="submit" class="btn btn-primary" value="Guardar" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="w-75">
+    <div class="w-75">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (var p in Model.playLists)
+                    {
+                        <tr>
+                            <td scope="row">@i</td>
+                            <td>@p.Name</td>
+                            <td>
+                                <a asp-action="Edit" asp-route-Id="@p.PlaylistId"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a asp-action="Delete" asp-route-Id="@p.PlaylistId" onclick="return confirm('Estas Seguro?')"><i class="fa-solid fa-trash"></i></a>
+                                <a asp-action="Read" asp-route-Id="@p.PlaylistId"><i class="fa-regular fa-eye"></i></a>
+                            </td>
+                        </tr>
+                        i++;
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
